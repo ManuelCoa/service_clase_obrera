@@ -8,6 +8,7 @@ type DataObrero struct {
 	CargoOnapreID             int       `json:"id_cargo_onapre"`
 	ResponsabilidadPoliticaID int       `json:"responsabilidad_politica"`
 	ResponsabilidadComunalID  int       `json:"responsabilidad_comunal"`
+	EstructuraPopularID       int `json:"id_estructura_popular"`
 	InstitucionID             int       `json:"id_institucion"`
 	ProfesionID               int       `json:"id_profesion"`
 	EstadoCivil               string    `json:"estado_civil"`

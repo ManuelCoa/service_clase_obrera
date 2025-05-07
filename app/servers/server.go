@@ -82,7 +82,5 @@ func SetupAndListen() {
 	routers.AsistenciaEventosRoutes(app)
 	routers.EventosPopularesRoutes(app)
 
-
-
 	app.Listen(":3000")
 }

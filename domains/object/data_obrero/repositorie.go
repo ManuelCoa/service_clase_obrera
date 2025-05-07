@@ -7,7 +7,7 @@ import (
 
 func selectObreros() (*sql.Rows, error) {
 	query := `SELECT cedula_obrero, id_cargo_publico, id_cargo_onapre, responsabilidad_politica, 
-	         responsabilidad_comunal, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	         responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
 	         fecha_naci, genero, tipo_transporte, num_telefono, correo_electronico 
 	         FROM data_obrero`
 	return repository.FetchRows(query)
@@ -15,7 +15,7 @@ func selectObreros() (*sql.Rows, error) {
 
 func selectObreroID(cedula int) (*sql.Rows, error) {
 	query := `SELECT cedula_obrero, id_cargo_publico, id_cargo_onapre, responsabilidad_politica, 
-	         responsabilidad_comunal, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	         responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
 	         fecha_naci, genero, tipo_transporte, num_telefono, correo_electronico 
 	         FROM data_obrero WHERE cedula_obrero = ?`
 	return repository.FetchRows(query, cedula)
@@ -24,7 +24,7 @@ func selectObreroID(cedula int) (*sql.Rows, error) {
 func insertObrero(data DataObrero) (sql.Result, error) {
 	query := `INSERT INTO data_obrero 
 	         (cedula_obrero, id_cargo_publico, id_cargo_onapre, responsabilidad_politica, 
-	          responsabilidad_comunal, id_institucion, id_profesion, estado_civil, nombres, 
+	          responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, 
 	          apellidos, fecha_naci, genero, tipo_transporte, num_telefono, correo_electronico) 
 	         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 	return repository.ExecuteQuery(query,
@@ -33,6 +33,7 @@ func insertObrero(data DataObrero) (sql.Result, error) {
 		data.CargoOnapreID,
 		data.ResponsabilidadPoliticaID,
 		data.ResponsabilidadComunalID,
+		data.EstructuraPopularID,
 		data.InstitucionID,
 		data.ProfesionID,
 		data.EstadoCivil,
@@ -49,7 +50,7 @@ func insertObrero(data DataObrero) (sql.Result, error) {
 func updateObrero(data DataObrero) (sql.Result, error) {
 	query := `UPDATE data_obrero SET 
 	         id_cargo_publico = ?, id_cargo_onapre = ?, responsabilidad_politica = ?, 
-	         responsabilidad_comunal = ?, id_institucion = ?, id_profesion = ?, 
+	         responsabilidad_comunal = ?, id_estructura_popular = ?,  id_institucion = ?, id_profesion = ?, 
 	         estado_civil = ?, nombres = ?, apellidos = ?, fecha_naci = ?, genero = ?, 
 	         tipo_transporte = ?, num_telefono = ?, correo_electronico = ? 
 	         WHERE cedula_obrero = ?`
@@ -58,6 +59,7 @@ func updateObrero(data DataObrero) (sql.Result, error) {
 		data.CargoOnapreID,
 		data.ResponsabilidadPoliticaID,
 		data.ResponsabilidadComunalID,
+		data.EstructuraPopularID,
 		data.InstitucionID,
 		data.ProfesionID,
 		data.EstadoCivil,
