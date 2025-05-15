@@ -25,6 +25,34 @@ func GetID(c *fiber.Ctx, getByIDFunc func(int) (interface{}, error)) (interface{
 
 	return data, nil
 }
+//funcion para consultar por cedula
+func GetIDCedula(c *fiber.Ctx, getByIDFunc func(int) (interface{}, error)) (interface{}, error) {
+	id, err := c.ParamsInt("cedula")
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := getByIDFunc(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+//funcion para consultar por id de institucion
+func GetIDInstitucion(c *fiber.Ctx, getByIDFunc func(int) (interface{}, error)) (interface{}, error) {
+	id, err := c.ParamsInt("id_institucion")
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := getByIDFunc(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
 func GetStringID(c *fiber.Ctx, getByIDFunc func(string) (interface{}, error)) (interface{}, error) {
 	id := c.Params("id")
 

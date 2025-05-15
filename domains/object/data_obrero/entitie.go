@@ -9,9 +9,10 @@ func scanData(rows *sql.Rows, dato *DataObrero) error {
 	return rows.Scan(
 		&dato.CedulaObrero,
 		&dato.CargoPublicoID,
-		&dato.CargoOnapreID,
+		//&dato.CargoOnapreID,
 		&dato.ResponsabilidadPoliticaID,
 		&dato.ResponsabilidadComunalID,
+		&dato.EstructuraPopularID,
 		&dato.InstitucionID,
 		&dato.ProfesionID,
 		&dato.EstadoCivil,
@@ -19,7 +20,7 @@ func scanData(rows *sql.Rows, dato *DataObrero) error {
 		&dato.Apellidos,
 		&dato.FechaNacimiento,
 		&dato.Genero,
-		&dato.TipoTransporte,
+		//&dato.TipoTransporte,
 		&dato.NumeroTelefono,
 		&dato.Correro,
 	)
@@ -37,6 +38,16 @@ func searchParsedObreros() ([]DataObrero, error) {
 
 func searchParsedObreroID(cedula int) ([]DataObrero, error) {
 	rows, err := selectObreroID(cedula)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	return entitie.ScanRows(rows, scanData)
+}
+//nueva funcion para filtarar por id 
+func searchParsedObreroIDInstitucion(id_institucion int) ([]DataObrero, error) {
+	rows, err := selectObreroInstitucion(id_institucion)
 	if err != nil {
 		return nil, err
 	}

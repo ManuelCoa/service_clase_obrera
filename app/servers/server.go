@@ -81,6 +81,9 @@ func SetupAndListen() {
 	routers.GeoEventosRoutes(app)
 	routers.AsistenciaEventosRoutes(app)
 	routers.EventosPopularesRoutes(app)
+	routers.DataObreroRoutes(app)
+	routers.DireccionParentescoRoutes(app)
+	routers.TransportePublicoRoutes(app)
 
 	app.Listen(":3000")
 }

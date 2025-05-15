@@ -8,6 +8,10 @@ func GetObreroServiceID(cedula int) ([]DataObrero, error) {
 	return searchParsedObreroID(cedula)
 }
 
+func GetObreroServiceIDInstitucion(id_institucion int) ([]DataObrero, error) {
+	return searchParsedObreroIDInstitucion(id_institucion)
+}
+
 func PostObreroService(data interface{}) error {
 	return insertionObrero(data)
 }

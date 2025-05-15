@@ -6,31 +6,39 @@ import (
 )
 
 func selectObreros() (*sql.Rows, error) {
-	query := `SELECT cedula_obrero, id_cargo_publico, id_cargo_onapre, responsabilidad_politica, 
-	         responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
-	         fecha_naci, genero, tipo_transporte, num_telefono, correo_electronico 
+	query := `SELECT cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
+	         id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	         fecha_naci, genero, num_telefono, correo_electronico 
 	         FROM data_obrero`
 	return repository.FetchRows(query)
 }
-
+//funcion para consultar por cedula
 func selectObreroID(cedula int) (*sql.Rows, error) {
-	query := `SELECT cedula_obrero, id_cargo_publico, id_cargo_onapre, responsabilidad_politica, 
-	         responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
-	         fecha_naci, genero, tipo_transporte, num_telefono, correo_electronico 
+	query := `SELECT cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
+	         id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	         fecha_naci, genero, num_telefono, correo_electronico 
 	         FROM data_obrero WHERE cedula_obrero = ?`
 	return repository.FetchRows(query, cedula)
+}
+//funcion para consultar por id de institucion
+func selectObreroInstitucion(id_institucion int) (*sql.Rows, error) {
+	query := `SELECT cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
+	         id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	         fecha_naci, genero, num_telefono, correo_electronico 
+	         FROM data_obrero WHERE id_institucion = ?`
+	return repository.FetchRows(query, id_institucion)
 }
 
 func insertObrero(data DataObrero) (sql.Result, error) {
 	query := `INSERT INTO data_obrero 
-	         (cedula_obrero, id_cargo_publico, id_cargo_onapre, responsabilidad_politica, 
-	          responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, 
-	          apellidos, fecha_naci, genero, tipo_transporte, num_telefono, correo_electronico) 
-	         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+	         (cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
+	          id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, 
+	          apellidos, fecha_naci, genero, num_telefono, correo_electronico) 
+	         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 	return repository.ExecuteQuery(query,
 		data.CedulaObrero,
 		data.CargoPublicoID,
-		data.CargoOnapreID,
+		//data.CargoOnapreID,
 		data.ResponsabilidadPoliticaID,
 		data.ResponsabilidadComunalID,
 		data.EstructuraPopularID,
@@ -41,7 +49,7 @@ func insertObrero(data DataObrero) (sql.Result, error) {
 		data.Apellidos,
 		data.FechaNacimiento,
 		data.Genero,
-		data.TipoTransporte,
+		//data.TipoTransporte,
 		data.NumeroTelefono,
 		data.Correro,
 	)
@@ -49,14 +57,14 @@ func insertObrero(data DataObrero) (sql.Result, error) {
 
 func updateObrero(data DataObrero) (sql.Result, error) {
 	query := `UPDATE data_obrero SET 
-	         id_cargo_publico = ?, id_cargo_onapre = ?, responsabilidad_politica = ?, 
-	         responsabilidad_comunal = ?, id_estructura_popular = ?,  id_institucion = ?, id_profesion = ?, 
+	         id_cargo_publico = ?, id_responsabilidad_politica = ?, 
+	         id_responsabilidad_comunal = ?, id_estructura_popular = ?,  id_institucion = ?, id_profesion = ?, 
 	         estado_civil = ?, nombres = ?, apellidos = ?, fecha_naci = ?, genero = ?, 
-	         tipo_transporte = ?, num_telefono = ?, correo_electronico = ? 
+	         num_telefono = ?, correo_electronico = ? 
 	         WHERE cedula_obrero = ?`
 	return repository.ExecuteQuery(query,
 		data.CargoPublicoID,
-		data.CargoOnapreID,
+		//data.CargoOnapreID,
 		data.ResponsabilidadPoliticaID,
 		data.ResponsabilidadComunalID,
 		data.EstructuraPopularID,
@@ -67,7 +75,7 @@ func updateObrero(data DataObrero) (sql.Result, error) {
 		data.Apellidos,
 		data.FechaNacimiento,
 		data.Genero,
-		data.TipoTransporte,
+		//data.TipoTransporte,
 		data.NumeroTelefono,
 		data.Correro,
 		data.CedulaObrero,

@@ -17,6 +17,11 @@ func DataObreroGetServiceID(cedula int) DataObreroInterface {
 		return data_obrero.GetObreroServiceID(cedula)
 	}
 }
+func DataObreroGetServiceIDInstitucion(id_institucion int) DataObreroInterface {
+	return func() ([]data_obrero.DataObrero, error) {
+		return data_obrero.GetObreroServiceIDInstitucion(id_institucion)
+	}
+}
 
 func DataObreroPostService(data interface{}) error {
 	return data_obrero.PostObreroService(data)

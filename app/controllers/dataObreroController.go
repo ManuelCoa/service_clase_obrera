@@ -41,7 +41,21 @@ func GetDataObreroID(c *fiber.Ctx) error {
 		return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Datos del obrero obtenidos del caché", result)
 	}
 
-	data, err := handlers.GetID(c, models.GetDataObreroID)
+	data, err := handlers.GetIDCedula(c, models.GetDataObreroID)
+	if err != nil {
+		return handlers.CreateErrorResponse(c, fiber.StatusInternalServerError, "Error al obtener datos del obrero", err)
+	}
+
+	obreroCache.Set(c.OriginalURL(), data, len(c.OriginalURL()))
+	return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Datos del obrero obtenidos exitosamente", data)
+}
+func GetDataObreroIDInstitucion(c *fiber.Ctx) error {
+
+	if result, exists := obreroCache.Get(c.OriginalURL()); exists {
+		return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Datos del obrero obtenidos del caché", result)
+	}
+
+	data, err := handlers.GetIDInstitucion(c, models.GetDataObreroIDInstitucion)
 	if err != nil {
 		return handlers.CreateErrorResponse(c, fiber.StatusInternalServerError, "Error al obtener datos del obrero", err)
 	}
