@@ -6,45 +6,59 @@ import (
 )
 
 func selectObreros() (*sql.Rows, error) {
-	query := `SELECT cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
-	         id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	query := `SELECT cedula_obrero, id_institucion, estado_civil, id_piel nombres, apellidos, 
 	         fecha_naci, genero, num_telefono, correo_electronico 
-	         FROM data_obrero`
-	return repository.FetchRows(query)
+	         FROM gestion_datos_obrero`
+	return repository.FetchRows(query)//
 }
 //funcion para consultar por cedula
 func selectObreroID(cedula int) (*sql.Rows, error) {
-	query := `SELECT cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
-	         id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
+	query := `SELECT cedula_obrero,id_institucion, estado_civil, id_piel, nombres, apellidos, 
 	         fecha_naci, genero, num_telefono, correo_electronico 
-	         FROM data_obrero WHERE cedula_obrero = ?`
+	         FROM gestion_datos_obrero WHERE cedula_obrero = ?`
 	return repository.FetchRows(query, cedula)
 }
 //funcion para consultar por id de institucion
 func selectObreroInstitucion(id_institucion int) (*sql.Rows, error) {
-	query := `SELECT cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
-	         id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, apellidos, 
-	         fecha_naci, genero, num_telefono, correo_electronico 
-	         FROM data_obrero WHERE id_institucion = ?`
+	query := `SELECT 
+    o.cedula_obrero,
+    d.id_direccion_obrero,
+    d.id_estado,
+    d.id_municipio,
+    d.id_parroquia,
+    d.id_ciudad,
+    d.id_comuna,
+    d.id_consejo,
+    d.sector_urbanismo,
+    d.direccion,
+    d.punto_referencia,
+    d.cedula_jefe_calle,
+    d.nombre_jefe_calle
+FROM 
+    gestion_datos_obrero o
+JOIN 
+    gestion_direccion_obrero d ON o.cedula_obrero = d.cedula_obrero
+WHERE 
+    o.id_institucion = (SELECT id_institucion FROM gestion_user WHERE id_user = ?);`
 	return repository.FetchRows(query, id_institucion)
 }
 
 func insertObrero(data DataObrero) (sql.Result, error) {
-	query := `INSERT INTO data_obrero 
-	         (cedula_obrero, id_cargo_publico, id_responsabilidad_politica, 
-	          id_responsabilidad_comunal, id_estructura_popular, id_institucion, id_profesion, estado_civil, nombres, 
+	query := `INSERT INTO gestion_datos_obrero 
+	         (cedula_obrero, id_institucion, estado_civil, id_piel, nombres, 
 	          apellidos, fecha_naci, genero, num_telefono, correo_electronico) 
-	         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+	         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 	return repository.ExecuteQuery(query,
 		data.CedulaObrero,
-		data.CargoPublicoID,
+		//data.CargoPublicoID,
 		//data.CargoOnapreID,
-		data.ResponsabilidadPoliticaID,
-		data.ResponsabilidadComunalID,
-		data.EstructuraPopularID,
+		//data.ResponsabilidadPoliticaID,
+		//data.ResponsabilidadComunalID,
+		//data.EstructuraPopularID,
 		data.InstitucionID,
-		data.ProfesionID,
+		//data.ProfesionID,
 		data.EstadoCivil,
+		data.PielID,
 		data.Nombres,
 		data.Apellidos,
 		data.FechaNacimiento,
@@ -56,21 +70,19 @@ func insertObrero(data DataObrero) (sql.Result, error) {
 }
 
 func updateObrero(data DataObrero) (sql.Result, error) {
-	query := `UPDATE data_obrero SET 
-	         id_cargo_publico = ?, id_responsabilidad_politica = ?, 
-	         id_responsabilidad_comunal = ?, id_estructura_popular = ?,  id_institucion = ?, id_profesion = ?, 
-	         estado_civil = ?, nombres = ?, apellidos = ?, fecha_naci = ?, genero = ?, 
+	query := `UPDATE gestion_datos_obrero SET id_institucion = ?, estado_civil = ?, id_piel = ?, nombres = ?, apellidos = ?, fecha_naci = ?, genero = ?, 
 	         num_telefono = ?, correo_electronico = ? 
 	         WHERE cedula_obrero = ?`
 	return repository.ExecuteQuery(query,
-		data.CargoPublicoID,
+		//data.CargoPublicoID,
 		//data.CargoOnapreID,
-		data.ResponsabilidadPoliticaID,
-		data.ResponsabilidadComunalID,
-		data.EstructuraPopularID,
+		//data.ResponsabilidadPoliticaID,
+		//data.ResponsabilidadComunalID,
+		//data.EstructuraPopularID,
 		data.InstitucionID,
-		data.ProfesionID,
+		//data.ProfesionID,
 		data.EstadoCivil,
+		data.PielID,
 		data.Nombres,
 		data.Apellidos,
 		data.FechaNacimiento,
@@ -83,6 +95,6 @@ func updateObrero(data DataObrero) (sql.Result, error) {
 }
 
 func deleteObrero(cedula int) (sql.Result, error) {
-	query := "DELETE FROM data_obrero WHERE cedula_obrero = ?"
+	query := "DELETE FROM gestion_datos_obrero WHERE cedula_obrero = ?"
 	return repository.ExecuteQuery(query, cedula)
 }
