@@ -9,6 +9,8 @@ func scanData(rows *sql.Rows, dato *DireccionObrero) error {
 	return rows.Scan(
 		&dato.DireccionObreroID,
 		&dato.ObreroCedula,
+		&dato.ComunaID,
+		&dato.ConsejoID,
 		&dato.EstadoID,
 		&dato.MunicipioID,
 		&dato.ParroquiaID,
@@ -16,6 +18,8 @@ func scanData(rows *sql.Rows, dato *DireccionObrero) error {
 		&dato.SectorUrbanismo,
 		&dato.Direccion,
 		&dato.PuntoReferencia,
+		&dato.CedulaJefeCalle,
+		&dato.NombreJefeCalle,
 	)
 }
 
