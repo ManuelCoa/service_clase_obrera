@@ -9,6 +9,7 @@ import (
 
 func DireccionObreroRoutes(app *fiber.App) {
 	api := app.Group("/api")
+
 	corsOptions := middleware.CorsOptions{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
@@ -17,7 +18,7 @@ func DireccionObreroRoutes(app *fiber.App) {
 		ExposedHeaders:   []string{"X-Custom-Header"},
 		MaxAge:           3600,
 	}
-	direccionObreroGroup := api.Group("/direccion-obrero")
+	direccionObreroGroup := api.Group("/direccionobrero")
 
 	direccionObreroGroup.Use(middleware.CorsMiddleware(corsOptions))
 	direccionObreroGroup.Use(middleware.AuthRequired)
@@ -25,6 +26,7 @@ func DireccionObreroRoutes(app *fiber.App) {
 
 	direccionObreroGroup.Get("/", controllers.GetDireccionesObrero)
 	direccionObreroGroup.Get("/:id", controllers.GetDireccionObreroID)
+	direccionObreroGroup.Get("inst/:id_institucion", controllers.GetDireccionObreroIDInstitucion)
 	direccionObreroGroup.Post("/", controllers.PostDireccionObrero)
 	direccionObreroGroup.Put("/", controllers.PutDireccionObrero)
 	direccionObreroGroup.Delete("/:id", controllers.DeleteDireccionObrero)

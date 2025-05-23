@@ -56,6 +56,7 @@ func SessionLoginOperation() func(username, password, ipAddress, userAgent strin
 		// 4. Generar token JWT
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"id_usuario": user.UserID,
+			"id_institucion": user.InstitucionID,
 			"exp":        time.Now().Add(time.Hour * 72).Unix(),
 		})
 

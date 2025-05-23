@@ -27,6 +27,18 @@ func GetDireccionObreroID(id int) (interface{}, error) {
 	})
 }
 
+
+func GetDireccionObreroInstitucionID(id_institucion int) (interface{}, error) {
+	return repository.FetchDomainService(func() (interface{}, error) {
+		data := interfaz.DireccionObreroGetServiceInstitucionID(id_institucion)
+		result, err := data()
+		if err != nil {
+			return nil, err
+		}
+		return result, nil
+	})
+}
+
 func PostDireccionObrero(data interface{}) error {
 	return repository.ModifyDomainService(func() error {
 		return interfaz.DireccionObreroPostService(data)

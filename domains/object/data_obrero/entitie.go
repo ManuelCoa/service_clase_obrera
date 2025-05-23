@@ -25,9 +25,6 @@ func scanData(rows *sql.Rows, dato *DataObrero) error {
 		//&dato.TipoTransporte,
 		&dato.NumeroTelefono,
 		&dato.Correro,
-		&dato.PuntoReferencia,
-		&dato.CedulaJefeCalle,
-		&dato.NombreJefeCalle,
 	)
 }
 

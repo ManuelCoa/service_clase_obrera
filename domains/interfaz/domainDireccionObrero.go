@@ -17,6 +17,11 @@ func DireccionObreroGetServiceID(id int) DireccionObreroInterface {
 		return direccionobrero.GetDireccionObreroServiceID(id)
 	}
 }
+func DireccionObreroGetServiceInstitucionID(id_institucion int) DireccionObreroInterface {
+	return func() ([]direccionobrero.DireccionObrero, error) {
+		return direccionobrero.GetDireccionObreroServiceInstitucionID(id_institucion)
+	}
+}
 
 func DireccionObreroPostService(data interface{}) error {
 	return direccionobrero.PostDireccionObreroService(data)

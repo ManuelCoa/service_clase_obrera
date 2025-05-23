@@ -33,6 +33,13 @@ func AuthRequired(c *fiber.Ctx) error {
 		fmt.Println("User ID not found in claims")
 	}
 
+	if InstitucionID, ok := claims["id_institucion"].(float64); ok {
+		InstitucionID:= int(InstitucionID)
+		c.Locals("id_institucion", InstitucionID)
+	} else {
+		fmt.Println("id_institucion not found in claims")
+	}
+
 	// Continúa con el siguiente handler.
 	return c.Next()
 }

@@ -2,6 +2,8 @@ package routers
 
 import (
 	"claseobrera/app/controllers"
+	"claseobrera/app/middleware"
+
 	//"claseobrera/app/middleware"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,7 +11,7 @@ import (
 
 func DataObreroRoutes(app *fiber.App) {
 	api := app.Group("/api")
-/*
+
 	corsOptions := middleware.CorsOptions{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
@@ -19,13 +21,11 @@ func DataObreroRoutes(app *fiber.App) {
 		MaxAge:           3600,
 	}
 	
-
+	obreroGroup := api.Group("/obrero")
 
 	obreroGroup.Use(middleware.CorsMiddleware(corsOptions))
 	obreroGroup.Use(middleware.AuthRequired)
 	obreroGroup.Use(middleware.CheckPermissions)
-*/	
-obreroGroup := api.Group("/obrero")
 	
 	obreroGroup.Get("/", controllers.GetDataObrero)
 	obreroGroup.Get("/:cedula", controllers.GetDataObreroID)
