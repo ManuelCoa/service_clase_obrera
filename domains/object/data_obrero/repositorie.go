@@ -21,7 +21,7 @@ func selectObreroID(cedula int) (*sql.Rows, error) {
 //funcion para consultar por id de institucion
 func selectObreroInstitucion(id_institucion int) (*sql.Rows, error) {
 	query := `SELECT 
-    o.cedula_obrero,
+    d.cedula_obrero,
     d.id_direccion_obrero,
     d.id_estado,
     d.id_municipio,
@@ -39,7 +39,7 @@ FROM
 JOIN 
     gestion_direccion_obrero d ON o.cedula_obrero = d.cedula_obrero
 WHERE 
-    o.id_institucion = (SELECT id_institucion FROM gestion_user WHERE id_user = ?);`
+    o.id_institucion = ?;`
 	return repository.FetchRows(query, id_institucion)
 }
 

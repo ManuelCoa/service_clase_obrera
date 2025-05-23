@@ -16,6 +16,9 @@ type DataObrero struct {
 	FechaNacimiento string `json:"fecha_naci"`
 	Genero          string `json:"genero"`
 	//TipoTransporte            string    `json:"tipo_transporte"`
-	NumeroTelefono string `json:"num_telefono"`
-	Correro        string `json:"correo_electronico"`
+	NumeroTelefono  string `json:"num_telefono"`
+	Correro         string `json:"correo_electronico"`
+	PuntoReferencia string `json:"punto_referencia"`
+	CedulaJefeCalle int    `json:"cedula_jefe_calle"`
+	NombreJefeCalle string `json:"nombre_jefe_calle"`
 }

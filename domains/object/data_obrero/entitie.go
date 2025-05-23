@@ -3,6 +3,7 @@ package data_obrero
 import (
 	"claseobrera/domains/entitie"
 	"database/sql"
+	//"claseobrera/domains/object/direccion_obrero"
 )
 
 func scanData(rows *sql.Rows, dato *DataObrero) error {
@@ -24,6 +25,9 @@ func scanData(rows *sql.Rows, dato *DataObrero) error {
 		//&dato.TipoTransporte,
 		&dato.NumeroTelefono,
 		&dato.Correro,
+		&dato.PuntoReferencia,
+		&dato.CedulaJefeCalle,
+		&dato.NombreJefeCalle,
 	)
 }
 
