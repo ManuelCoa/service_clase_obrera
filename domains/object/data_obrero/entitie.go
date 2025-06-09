@@ -9,22 +9,15 @@ import (
 func scanData(rows *sql.Rows, dato *DataObrero) error {
 	return rows.Scan(
 		&dato.CedulaObrero,
-		//&dato.CargoPublicoID,
-		//&dato.CargoOnapreID,
-		//&dato.ResponsabilidadPoliticaID,
-		//&dato.ResponsabilidadComunalID,
-		//&dato.EstructuraPopularID,
 		&dato.InstitucionID,
-		//&dato.ProfesionID,
 		&dato.EstadoCivil,
-		&dato.EstadoCivil,
+		&dato.PielID,
 		&dato.Nombres,
 		&dato.Apellidos,
 		&dato.FechaNacimiento,
 		&dato.Genero,
-		//&dato.TipoTransporte,
 		&dato.NumeroTelefono,
-		&dato.Correro,
+		&dato.Correo,
 	)
 }
 

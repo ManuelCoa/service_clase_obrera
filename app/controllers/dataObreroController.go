@@ -50,6 +50,8 @@ func GetDataObreroID(c *fiber.Ctx) error {
 	return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Datos del obrero obtenidos exitosamente", data)
 }
 
+//fucion para consultar obreros por id de institucion
+
 func GetDataObreroIDInstitucion(c *fiber.Ctx) error {
 
 	if result, exists := obreroCache.Get(c.OriginalURL()); exists {

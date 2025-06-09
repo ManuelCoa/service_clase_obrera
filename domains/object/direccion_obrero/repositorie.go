@@ -7,15 +7,15 @@ import (
 
 func selectDireccionObrero() (*sql.Rows, error) {
 	query := `
-		SELECT direccion_obrero_id, obrero_cedula,id_comuna, id_consejo, estado_id, municipio_id, 
-		       parroquia_id, ciudad_id, sector_urbanismo, direccion, punto_referencia, cedula_jefe_calle, nombre_jefe_calle
+		SELECT id_direccion_obrero, cedula_obrero,id_comuna, id_consejo, id_estado, id_municipio, 
+		       id_parroquia, id_ciudad, sector_urbanismo, direccion, punto_referencia, cedula_jefe_calle, nombre_jefe_calle
 		FROM gestion_direccion_obrero`
 	return repository.FetchRows(query)
 }
 
 func selectDireccionObreroID(id int) (*sql.Rows, error) {
-	query := `SELECT direccion_obrero_id, obrero_cedula,id_comuna, id_consejo, estado_id, municipio_id, 
-		       parroquia_id, ciudad_id, sector_urbanismo, direccion, punto_referencia, cedula_jefe_calle, nombre_jefe_calle
+	query := `SELECT id_direccion_obrero, cedula_obrero,id_comuna, id_consejo, id_estado, id_municipio, 
+		       id_parroquia, id_ciudad, sector_urbanismo, direccion, punto_referencia, cedula_jefe_calle, nombre_jefe_calle
 		FROM gestion_direccion_obrero 
 		WHERE direccion_obrero_id = ?`
 	return repository.FetchRows(query, id)

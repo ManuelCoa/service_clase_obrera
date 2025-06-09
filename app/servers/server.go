@@ -30,6 +30,5 @@ func SetupAndListen() {
 	routers.DireccionObreroRoutes(app)
 	routers.DataObreroRoutes(app)
 	routers.TestPielRoutes(app)
-	
 	app.Listen(":3000")
 }
