@@ -50,6 +50,21 @@ func GetDireccionObreroID(c *fiber.Ctx) error {
 
 	return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Dirección obtenida con éxito", data)
 }
+//funcion para consultar por id de institucion 
+func GetDireccionObreroIDInstitucion(c *fiber.Ctx) error {
+
+	if result, exists := obreroCache.Get(c.OriginalURL()); exists {
+		return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Datos del obrero obtenidos del caché", result)
+	}
+
+	data, err := handlers.GetIDInstitucion(c, models.GetDireccionObreroInstitucionID)
+	if err != nil {
+		return handlers.CreateErrorResponse(c, fiber.StatusInternalServerError, "Error al obtener datos del obrero", err)
+	}
+
+	obreroCache.Set(c.OriginalURL(), data, len(c.OriginalURL()))
+	return handlers.CreateSuccessResponse(c, fiber.StatusOK, "Datos del obrero obtenidos exitosamente", data)
+}
 
 func PostDireccionObrero(c *fiber.Ctx) error {
 	clientIP := c.IP()

@@ -3,6 +3,7 @@ package routers
 import (
 	"claseobrera/app/controllers"
 	"claseobrera/app/middleware"
+
 	//"claseobrera/app/middleware"
 
 	"github.com/gofiber/fiber/v2"
@@ -26,11 +27,9 @@ func DataObreroRoutes(app *fiber.App) {
 	obreroGroup.Use(middleware.AuthRequired)
 	obreroGroup.Use(middleware.CheckPermissions)
 	
-
-	
 	obreroGroup.Get("/", controllers.GetDataObrero)
-	obreroGroup.Get("/:cedula", controllers.GetDataObreroID)
-	obreroGroup.Get("inst/:id_institucion", controllers.GetDataObreroIDInstitucion)
+	//obreroGroup.Get("/:cedula", controllers.GetDataObreroID)
+	obreroGroup.Get("/:id_institucion", controllers.GetDataObreroIDInstitucion)
 	obreroGroup.Post("/", controllers.PostDataObrero)
 	obreroGroup.Put("/", controllers.PutDataObrero)
 	obreroGroup.Delete("/:cedula", controllers.DeleteDataObrero)

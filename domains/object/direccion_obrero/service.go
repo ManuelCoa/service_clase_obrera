@@ -7,6 +7,9 @@ func GetDireccionObreroService() ([]DireccionObrero, error) {
 func GetDireccionObreroServiceID(id int) ([]DireccionObrero, error) {
 	return searchParsedDireccionObreroID(id)
 }
+func GetDireccionObreroServiceInstitucionID(id_institucion int) ([]DireccionObrero, error) {
+	return searchParsedDireccionObreroInstitucionID(id_institucion)
+}
 
 func PostDireccionObreroService(data interface{}) error {
 	return insertionDireccionObrero(data)

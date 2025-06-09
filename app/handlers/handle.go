@@ -53,6 +53,7 @@ func GetIDInstitucion(c *fiber.Ctx, getByIDFunc func(int) (interface{}, error)) 
 
 	return data, nil
 }
+
 func GetStringID(c *fiber.Ctx, getByIDFunc func(string) (interface{}, error)) (interface{}, error) {
 	id := c.Params("id")
 

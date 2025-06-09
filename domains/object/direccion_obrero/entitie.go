@@ -9,6 +9,8 @@ func scanData(rows *sql.Rows, dato *DireccionObrero) error {
 	return rows.Scan(
 		&dato.DireccionObreroID,
 		&dato.ObreroCedula,
+		&dato.ComunaID,
+		&dato.ConsejoID,
 		&dato.EstadoID,
 		&dato.MunicipioID,
 		&dato.ParroquiaID,
@@ -16,6 +18,8 @@ func scanData(rows *sql.Rows, dato *DireccionObrero) error {
 		&dato.SectorUrbanismo,
 		&dato.Direccion,
 		&dato.PuntoReferencia,
+		&dato.CedulaJefeCalle,
+		&dato.NombreJefeCalle,
 	)
 }
 
@@ -38,6 +42,16 @@ func searchParsedDireccionObreroID(id int) ([]DireccionObrero, error) {
 
 	return entitie.ScanRows(rows, scanData)
 }
+func searchParsedDireccionObreroInstitucionID(id_institucion int) ([]DireccionObrero, error) {
+	rows, err := selectDireccionObreroInstitucionID(id_institucion)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	return entitie.ScanRows(rows, scanData)
+}
+
 
 func insertionDireccionObrero(data interface{}) error {
 	dato, err := entitie.ParseJSONToStruct[DireccionObrero](data)

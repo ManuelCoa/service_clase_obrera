@@ -3,26 +3,21 @@ package data_obrero
 import (
 	"claseobrera/domains/entitie"
 	"database/sql"
+	//"claseobrera/domains/object/direccion_obrero"
 )
 
 func scanData(rows *sql.Rows, dato *DataObrero) error {
 	return rows.Scan(
 		&dato.CedulaObrero,
-		&dato.CargoPublicoID,
-		//&dato.CargoOnapreID,
-		&dato.ResponsabilidadPoliticaID,
-		&dato.ResponsabilidadComunalID,
-		&dato.EstructuraPopularID,
 		&dato.InstitucionID,
-		&dato.ProfesionID,
 		&dato.EstadoCivil,
+		&dato.PielID,
 		&dato.Nombres,
 		&dato.Apellidos,
 		&dato.FechaNacimiento,
 		&dato.Genero,
-		//&dato.TipoTransporte,
 		&dato.NumeroTelefono,
-		&dato.Correro,
+		&dato.Correo,
 	)
 }
 
